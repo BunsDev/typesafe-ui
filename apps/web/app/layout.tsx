@@ -1,29 +1,44 @@
 import type { Metadata } from "next"
-import { Geist_Mono, Instrument_Sans } from "next/font/google"
+import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google"
 
 import "@workspace/ui/globals.css"
 import { DirectionProvider } from "@workspace/ui/components/direction"
+import { TooltipProvider } from "@workspace/ui/components/tooltip"
 import { cn } from "@workspace/ui/lib/utils"
 
+import { SiteFooter } from "@/components/site-footer"
+import { SiteHeader } from "@/components/site-header"
 import { ThemeProvider } from "@/components/theme-provider"
 import { site } from "@/lib/site"
 
-const fontSans = Instrument_Sans({
+const fontSans = IBM_Plex_Sans({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-sans",
 })
 
-const fontMono = Geist_Mono({
+const fontMono = IBM_Plex_Mono({
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   variable: "--font-mono",
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
   title: {
-    default: site.name,
-    template: `%s · ${site.name}`,
+    default: `${site.name} — ${site.tagline}`,
+    template: `%s — ${site.name}`,
   },
   description: site.description,
+  openGraph: {
+    siteName: site.name,
+    title: `${site.name} — ${site.tagline}`,
+    description: site.description,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 }
 
 export default function RootLayout({
@@ -38,9 +53,21 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn("font-sans antialiased", fontSans.variable, fontMono.variable)}
     >
-      <body>
+      <body className="min-h-svh flex flex-col">
         <DirectionProvider direction={site.dir}>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <TooltipProvider>
+              <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:start-2 focus:z-100 focus:rounded-md focus:bg-primary focus:px-3 focus:py-2 focus:text-sm focus:text-primary-foreground"
+              >
+                Skip to content
+              </a>
+              <SiteHeader />
+              <div className="flex flex-1 flex-col">{children}</div>
+              <SiteFooter />
+            </TooltipProvider>
+          </ThemeProvider>
         </DirectionProvider>
       </body>
     </html>
