@@ -55,6 +55,10 @@
     --font-sans: var(--font-sans);
     --font-mono: var(--font-mono);
     --ease-out-quart: cubic-bezier(0.2, 0, 0, 1);
+    /* Depth comes from layered shadows, borders stay for structure. */
+    --shadow-surface: var(--surface-shadow);
+    --shadow-surface-hover: var(--surface-shadow-hover);
+    --shadow-elevated: var(--elevated-shadow);
 }
 
 /*
@@ -99,6 +103,18 @@
     --sidebar-accent-foreground: #1b1b1f;
     --sidebar-border: #e0e0e4;
     --sidebar-ring: #d94a79;
+    --surface-shadow:
+        0 0 0 1px oklch(0 0 0 / 0.06),
+        0 1px 2px -1px oklch(0 0 0 / 0.06),
+        0 2px 4px 0 oklch(0 0 0 / 0.04);
+    --surface-shadow-hover:
+        0 0 0 1px oklch(0 0 0 / 0.08),
+        0 1px 2px -1px oklch(0 0 0 / 0.08),
+        0 2px 4px 0 oklch(0 0 0 / 0.06);
+    --elevated-shadow:
+        0 0 0 1px oklch(0 0 0 / 0.08),
+        0 4px 8px -2px oklch(0 0 0 / 0.08),
+        0 12px 24px -4px oklch(0 0 0 / 0.1);
 }
 
 .dark {
@@ -137,6 +153,12 @@
     --sidebar-accent-foreground: #f4f4f5;
     --sidebar-border: #2a2c31;
     --sidebar-ring: #f386a1;
+    /* Layered depth is invisible on dark ground, so a single white ring carries it. */
+    --surface-shadow: 0 0 0 1px oklch(1 0 0 / 0.08);
+    --surface-shadow-hover: 0 0 0 1px oklch(1 0 0 / 0.13);
+    --elevated-shadow:
+        0 0 0 1px oklch(1 0 0 / 0.1),
+        0 12px 24px -4px oklch(0 0 0 / 0.5);
 }
 
 @layer base {
@@ -159,6 +181,17 @@
   button:not(:disabled), [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+  /* Reduced motion: keep every state change, drop the motion that carries it. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer utilities {
@@ -168,6 +201,23 @@
   }
   .tnum {
     font-variant-numeric: tabular-nums;
+  }
+  /* One-shot staged entrance for infrequent view changes (lab scenes). */
+  .scene-enter {
+    animation: scene-enter 300ms var(--ease-out-quart);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scene-enter {
+      animation: none;
+    }
+  }
+}
+
+@keyframes scene-enter {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+    filter: blur(4px);
   }
 }
 
