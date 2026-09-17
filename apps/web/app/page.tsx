@@ -12,7 +12,11 @@ export default function Page() {
           <p>We&apos;ve already added the button component for you.</p>
           <div className="mt-2 flex gap-2">
             <Button>Button</Button>
-            <Button variant="outline" render={<Link href="/demo" />}>
+            <Button
+              variant="outline"
+              nativeButton={false}
+              render={<Link href="/demo" />}
+            >
               View component demos
             </Button>
           </div>
