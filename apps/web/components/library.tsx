@@ -148,7 +148,7 @@ function Library({ sources }: { sources: SourceMap }) {
       <Rail activeId={activeId} />
       <main id="main-content" tabIndex={-1} className="min-w-0 outline-none">
         <div className="mx-auto w-full max-w-4xl px-5 pt-10 pb-28 sm:px-8 lg:px-12">
-          <header id={OVERVIEW_ID} data-spy className="scroll-mt-20">
+          <header id={OVERVIEW_ID} data-spy>
             <p className="eyebrow mb-3">
               {site.name} · {site.tagline}
             </p>
@@ -162,7 +162,7 @@ function Library({ sources }: { sources: SourceMap }) {
             {groups.map((group) => {
               const detail = groupDetails[group]
               return (
-                <section key={group} id={detail.id} data-spy className="scroll-mt-20 flex flex-col gap-10">
+                <section key={group} id={detail.id} data-spy className="flex flex-col gap-10">
                   <header className="border-b pb-4">
                     <h2 className="text-2xl font-semibold tracking-[-0.02em]">{group}</h2>
                     <p className="text-muted-foreground mt-1 text-sm">{detail.description}</p>

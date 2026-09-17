@@ -9,7 +9,7 @@ function BrandMark({ className }: { className?: string }) {
   return (
     <span
       className={cn(
-        "relative inline-flex size-6 shrink-0 overflow-hidden rounded-md ring-1 ring-foreground/10",
+        "relative inline-flex size-6 shrink-0 overflow-hidden rounded-md [outline:1px_solid_oklch(0_0_0/0.1)] -outline-offset-1 dark:[outline-color:oklch(1_0_0/0.1)]",
         className
       )}
       aria-hidden="true"
@@ -31,7 +31,7 @@ function Brand({ className, sub }: { className?: string; sub?: string }) {
     >
       <BrandMark />
       <span className="flex flex-col leading-none">
-        <span>{site.name}</span>
+        <span className="whitespace-nowrap">{site.name}</span>
         {sub ? <span className="eyebrow mt-1 text-[9px]">{sub}</span> : null}
       </span>
     </Link>

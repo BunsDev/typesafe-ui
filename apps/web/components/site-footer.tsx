@@ -13,10 +13,10 @@ function SiteFooter() {
         </div>
         <nav aria-label="Footer" className="text-muted-foreground flex flex-wrap items-center gap-x-4 gap-y-2">
           <a href={site.links.github} target="_blank" rel="noreferrer" className="hover:text-foreground inline-flex items-center gap-1">
-            GitHub <ArrowUpRightIcon className="size-3" />
+            GitHub <ArrowUpRightIcon className="size-3" strokeWidth={1.5} />
           </a>
           <a href={site.links.docs} target="_blank" rel="noreferrer" className="hover:text-foreground inline-flex items-center gap-1">
-            TypeSafe docs <ArrowUpRightIcon className="size-3" />
+            TypeSafe docs <ArrowUpRightIcon className="size-3" strokeWidth={1.5} />
           </a>
           <span>Built on shadcn and Base UI.</span>
           <span className="text-foreground">Choose with confidence.</span>
