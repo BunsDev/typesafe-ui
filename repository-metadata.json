@@ -1,0 +1,18 @@
+{
+  "repository": "BunsDev/typesafe-ui",
+  "description": "Community React components and UI patterns for TypeSafe AI projects, built with shadcn/ui, Base UI, Tailwind CSS, and a Next.js component lab.",
+  "topics": [
+    "typesafe-ai",
+    "react",
+    "typescript",
+    "nextjs",
+    "shadcn-ui",
+    "base-ui",
+    "tailwindcss",
+    "component-library",
+    "design-system",
+    "turborepo",
+    "pnpm"
+  ],
+  "note": "Intended GitHub About metadata. This file does not apply repository settings automatically."
+}

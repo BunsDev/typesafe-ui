@@ -1,49 +1,72 @@
-# typesafe-ui
+# TypeSafe UI
 
-shadcn-style reusable components and blocks for using TypeSafe AI.
+Reusable React components and interactive interface patterns for TypeSafe AI projects, built with shadcn/ui, Base UI, and Tailwind CSS.
 
-Small parts. Clear interfaces.
+**Small parts. Clear interfaces.** An independent community project maintained under `BunsDev`, not an official TypeSafe AI component library or SDK.
 
-A Turborepo + pnpm monorepo scaffolded with shadcn/ui (`base-nova` style on Base UI, Tailwind v4, RTL-ready) and styled with the TypeSafe AI brand: pink primary, teal for live state, dark by default, IBM Plex type, and a dot-grid ground. The web app follows the OpenCoven UI layout: a sticky topbar, a grouped component rail, per-component cards with Preview/Source and Install/Import tabs, an "On this page" outline, and an interactive Lab.
+[Contributing](CONTRIBUTING.md) · [Agent guide](AGENTS.md) · [TypeSafe API documentation](https://docs.typesafe.ai/api)
 
-## Layout
+## What this repository provides
 
-```
-apps/
-  web/                  Next.js 16 site (App Router, React 19)
-    app/                / (library) and /lab (scenes)
-    components/         site shell, component cards, demos, lab scenes
-    lib/                site config, component registry, source loader, shiki
-packages/
-  ui/                   @workspace/ui — components, hooks, lib, globals.css
-  eslint-config/        @workspace/eslint-config
-  typescript-config/    @workspace/typescript-config
-```
+A Turborepo + pnpm workspace with a Next.js component browser, source previews, install/import examples, and an interactive Lab. The UI uses the shadcn `base-nova` style, Base UI primitives, Tailwind v4, and RTL-aware components.
+
+The site follows the OpenCoven UI layout: a sticky topbar, grouped component rail, per-component Preview/Source and Install/Import tabs, and an “On this page” outline. Its TypeSafe-inspired theme uses pink primary, teal live-state accents, dark mode by default, IBM Plex typography, and a dot-grid background.
+
+`@workspace/ui` is a **private workspace package**, not a published npm package. The imports below work inside this monorepo. For another application, deliberately port the components, styles, dependencies, and aliases you need; do not assume `npm install typesafe-ui` or a hosted registry exists. A visual “live” state is not proof of a real Jev API call.
 
 ## Getting started
 
-```bash
-pnpm install
-pnpm dev          # runs apps/web on http://localhost:3000
-pnpm build
-pnpm lint
-pnpm typecheck
+Use the pnpm version pinned in [package.json](package.json), currently `10.33.4`. The root manifest declares Node.js `>=20`; use a Node version supported by the checked-in Next.js dependency as well. Node.js 22+ is a practical development baseline.
+
+```sh
+git clone https://github.com/BunsDev/typesafe-ui.git
+cd typesafe-ui
+# Install/activate the pnpm version declared in package.json.
+# Where Corepack is installed, `corepack enable` enables its package-manager shims.
+pnpm install --frozen-lockfile
+pnpm dev
 ```
 
-Press `d` in the browser to toggle dark mode and `⌘K` to search components.
+Open the address printed by the development server, normally `http://localhost:3000`. The library is at `/`, and interactive scenes are at `/lab`. Press `d` to toggle dark mode and `⌘K` to search components.
+
+| Command | Purpose |
+| --- | --- |
+| `pnpm dev` | Run the web application through Turborepo. |
+| `pnpm build` | Build the workspace. |
+| `pnpm lint` | Run workspace lint tasks. |
+| `pnpm typecheck` | Run workspace TypeScript checks. |
+| `pnpm format` | Format source files; this writes changes. |
+
+There is currently no root `test` or browser-test script. Lint, typecheck, and build results must not be described as unit or end-to-end test coverage.
+
+## Layout
+
+```text
+apps/web/
+  app/                 Next.js routes, layout, fonts, and metadata
+  components/          Site shell, component cards, demos, and Lab scenes
+  lib/                 Site config, component registry, source loader, and shiki
+packages/
+  ui/                  @workspace/ui: components, hooks, utilities, and styles
+  eslint-config/       Shared lint configuration
+  typescript-config/   Shared TypeScript configuration
+```
 
 ## Adding a component
 
-1. Install it with the shadcn CLI against the `web` app. It lands in `packages/ui/src/components`.
+1. Add a component against the web app. The existing shadcn configuration places reusable components in `packages/ui/src/components`.
 
-   ```bash
+   ```sh
    pnpm dlx shadcn@latest add popover -c apps/web
    ```
 
-2. Add an entry to `apps/web/lib/registry.ts` (id, title, group, description, exports, states).
-3. Add a demo keyed by the same id in `apps/web/components/demos.tsx`.
+   This is a generator operation that can change source and dependencies. Review its diff and the lockfile rather than treating it as a read-only command.
 
-The library page reads each component's source from disk at build time and highlights it with shiki, so the Source tab, install command, and import statement come for free.
+2. Register the component in `apps/web/lib/registry.ts`: id, title, group, description, exports, and supported states.
+3. Add a demo using the same id in `apps/web/components/demos.tsx`.
+4. Verify its preview, source, import example, keyboard behavior, themes, narrow layout, and RTL behavior.
+
+The library reads component source from disk at build time and highlights it with shiki. Keep registry ids, exported paths, source paths, and demos aligned.
 
 ## Using components
 
@@ -51,14 +74,21 @@ The library page reads each component's source from disk at build time and highl
 import { Button } from "@workspace/ui/components/button"
 ```
 
-Base UI triggers compose through the `render` prop rather than `asChild`. A `Button` rendered as a link needs `nativeButton={false}`.
+Base UI triggers compose through the `render` prop rather than Radix-style `asChild`. A `Button` rendered as a link needs `nativeButton={false}`. Keep provider credentials and application-specific network clients out of reusable client components.
 
-## Theming
+## Theming and RTL
 
-Design tokens live in `packages/ui/src/styles/globals.css` as CSS variables, light in `:root` and dark in `.dark`. The TypeSafe palette adds `--teal`, `--success`, `--warning`, and `--dot` on top of the shadcn set. Fonts are wired in `apps/web/app/layout.tsx` via `next/font` and exposed as `--font-sans` and `--font-mono`.
+Tokens live in `packages/ui/src/styles/globals.css`: light values in `:root`, dark values in `.dark`. TypeSafe-oriented tokens include `--teal`, `--success`, `--warning`, and `--dot`. Fonts are wired through `next/font` in `apps/web/app/layout.tsx` and exposed as `--font-sans` and `--font-mono`.
 
-Site name, tagline, links, and nav live in `apps/web/lib/site.ts`.
+Site name, tagline, links, navigation, language, and direction live in `apps/web/lib/site.ts`. The shadcn configuration has `"rtl": true`. Set `dir` to `"rtl"` and `lang` to the intended locale to update the root layout and `DirectionProvider`. Prefer logical CSS properties so components work in both directions.
 
-## RTL
+## Related community projects
 
-`components.json` has `"rtl": true`, so every component the CLI adds uses logical properties. Direction is set in `apps/web/lib/site.ts`. Change `dir` to `"rtl"` and `lang` to your locale, and the root layout will set `<html dir lang>` and the `DirectionProvider` accordingly.
+| Repository | Role |
+| --- | --- |
+| [typesafe-ai-playground](https://github.com/BunsDev/typesafe-ai-playground) | Interactive Jev experiments and integration demos. |
+| [clarity-judge](https://github.com/BunsDev/clarity-judge) | Separate, named writing-quality checks. |
+| [typesafe-router](https://github.com/BunsDev/typesafe-router) | Closed-set tool and model routing, separate from execution. |
+| [typesafe-ui](https://github.com/BunsDev/typesafe-ui) | Reusable components and interface patterns. |
+
+These are separate repositories, not an automatically integrated or officially supported product suite. The proposed GitHub description and discovery topics are recorded in [repository-metadata.json](repository-metadata.json); that file does not change GitHub settings automatically.
