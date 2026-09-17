@@ -100,8 +100,8 @@ function DropdownMenuDemo() {
         Account
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>My account</DropdownMenuLabel>
         <DropdownMenuGroup>
+          <DropdownMenuLabel>My account</DropdownMenuLabel>
           <DropdownMenuItem>
             <UserIcon />
             Profile

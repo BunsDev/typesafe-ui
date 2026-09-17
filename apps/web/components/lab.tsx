@@ -62,7 +62,7 @@ function ComposerScene() {
             Compose
           </CardTitle>
           <CardDescription>
-            <GitBranchIcon className="me-1 inline size-3.5" />
+            <GitBranchIcon className="me-1 inline size-3.5" strokeWidth={1.5} />
             feat / focused-fix
           </CardDescription>
         </CardHeader>
@@ -82,6 +82,7 @@ function ComposerScene() {
                 <Button
                   variant="ghost"
                   size="icon-xs"
+                  className="rounded-full"
                   aria-label="Remove attachment"
                   onClick={() => setAttached(false)}
                 >
@@ -214,7 +215,10 @@ function DecisionScene() {
                 </div>
                 <div className="bg-muted h-1.5 overflow-hidden rounded-full">
                   <div
-                    className={cn("h-full rounded-full", index === 0 ? "bg-primary" : "bg-muted-foreground/40")}
+                    className={cn(
+                      "h-full rounded-full transition-[width] duration-300 ease-out-quart",
+                      index === 0 ? "bg-primary" : "bg-muted-foreground/40"
+                    )}
                     style={{ width: `${Math.round(option.confidence * 100)}%` }}
                   />
                 </div>
@@ -360,7 +364,7 @@ function Lab() {
         </p>
       </header>
 
-      <section aria-label="Scenes" className="bg-card/60 flex flex-col overflow-hidden rounded-xl border">
+      <section aria-label="Scenes" className="bg-card/60 shadow-surface flex flex-col overflow-hidden rounded-xl">
         <div className="flex items-center justify-between gap-4 border-b px-4 py-3 sm:px-5">
           <div className="flex items-center gap-3">
             <span className="bg-muted flex size-9 items-center justify-center rounded-lg border">
@@ -372,7 +376,7 @@ function Lab() {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-muted-foreground tnum font-mono text-xs">
+            <span className="text-muted-foreground tnum font-mono text-xs whitespace-nowrap">
               {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
             </span>
             <Button variant="outline" size="icon" aria-label="Previous scene" onClick={() => go(index - 1)}>
@@ -385,7 +389,10 @@ function Lab() {
         </div>
 
         <div className="flex min-h-[32rem] items-center justify-center p-4 sm:p-10">
-          <scene.Component key={scene.id} />
+          {/* Keyed so each scene change replays the entrance once. */}
+          <div key={scene.id} className="scene-enter flex w-full justify-center">
+            <scene.Component />
+          </div>
         </div>
 
         <nav aria-label="Scene tabs" className="grid grid-cols-3 border-t">
@@ -408,7 +415,7 @@ function Lab() {
         <div className="text-muted-foreground flex items-center justify-between border-t px-4 py-2 text-xs sm:px-5">
           <span>Interactive examples · Use the tabs or arrows</span>
           <Link href="/" className="hover:text-foreground inline-flex items-center gap-1">
-            View in library <ArrowUpRightIcon className="size-3" />
+            View in library <ArrowUpRightIcon className="size-3" strokeWidth={1.5} />
           </Link>
         </div>
       </section>

@@ -30,7 +30,7 @@ function ComponentCard({
       data-spy
       aria-labelledby={headingId}
       tabIndex={-1}
-      className="flex min-w-0 scroll-mt-20 flex-col gap-4 outline-none"
+      className="flex min-w-0 flex-col gap-4 outline-none"
     >
       <header className="flex flex-col gap-1.5">
         <div className="flex flex-wrap items-center gap-2.5">
@@ -56,7 +56,7 @@ function ComponentCard({
           <TabsTrigger value="preview" className="flex-none px-3">Preview</TabsTrigger>
           <TabsTrigger value="source" className="flex-none px-3">Source</TabsTrigger>
         </TabsList>
-        <div className="bg-card relative mt-3 grid min-h-56 overflow-hidden rounded-lg border">
+        <div className="bg-card shadow-surface relative mt-3 grid min-h-56 overflow-hidden rounded-lg">
           {/* The live preview stays mounted behind the source so its state survives the switch. */}
           <div
             className={cn(
@@ -69,12 +69,12 @@ function ComponentCard({
             {children}
           </div>
           {showingSource ? (
-            <div className="bg-card absolute inset-0 overflow-auto p-2">
+            <div className="bg-card absolute inset-0 overflow-auto">
               <CodeSnippet
                 code={sources.source.code}
                 html={sources.source.html}
                 label={`${entry.id}.tsx`}
-                className="border-0 bg-transparent"
+                className="rounded-none shadow-none"
               />
             </div>
           ) : null}
