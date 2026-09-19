@@ -1,5 +1,5 @@
 {
-  "repository": "BunsDev/typesafe-ui",
+  "repository": "TypeSafeAI/typesafe-ui",
   "description": "Community React components and UI patterns for TypeSafe AI projects, built with shadcn/ui, Base UI, Tailwind CSS, and a Next.js component lab.",
   "topics": [
     "typesafe-ai",

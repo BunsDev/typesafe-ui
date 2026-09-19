@@ -13,7 +13,7 @@ export const site = {
   /** Package alias consumers import from inside this monorepo. */
   packageName: "@workspace/ui",
   links: {
-    github: "https://github.com/BunsDev/typesafe-ui",
+    github: "https://github.com/TypeSafeAI/typesafe-ui",
     typesafe: "https://typesafe.ai",
     docs: "https://docs.typesafe.ai/introduction/quickstart",
   },
