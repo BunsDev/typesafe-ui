@@ -2,7 +2,7 @@
 
 Reusable React components and interactive interface patterns for TypeSafe AI projects, built with shadcn/ui, Base UI, and Tailwind CSS.
 
-**Small parts. Clear interfaces.** An independent community project maintained under `BunsDev`, not an official TypeSafe AI component library or SDK.
+**Small parts. Clear interfaces.** An independent community project maintained under `TypeSafeAI`, not an official TypeSafe AI component library or SDK.
 
 [Contributing](CONTRIBUTING.md) · [Agent guide](AGENTS.md) · [TypeSafe API documentation](https://docs.typesafe.ai/api)
 
