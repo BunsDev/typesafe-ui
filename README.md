@@ -19,7 +19,7 @@ The site follows the OpenCoven UI layout: a sticky topbar, grouped component rai
 Use the pnpm version pinned in [package.json](package.json), currently `10.33.4`. The root manifest declares Node.js `>=20`; use a Node version supported by the checked-in Next.js dependency as well. Node.js 22+ is a practical development baseline.
 
 ```sh
-git clone https://github.com/BunsDev/typesafe-ui.git
+git clone https://github.com/TypeSafeAI/typesafe-ui.git
 cd typesafe-ui
 # Install/activate the pnpm version declared in package.json.
 # Where Corepack is installed, `corepack enable` enables its package-manager shims.
@@ -89,6 +89,6 @@ Site name, tagline, links, navigation, language, and direction live in `apps/web
 | [typesafe-ai-playground](https://github.com/BunsDev/typesafe-ai-playground) | Interactive Jev experiments and integration demos. |
 | [clarity-judge](https://github.com/BunsDev/clarity-judge) | Separate, named writing-quality checks. |
 | [typesafe-router](https://github.com/BunsDev/typesafe-router) | Closed-set tool and model routing, separate from execution. |
-| [typesafe-ui](https://github.com/BunsDev/typesafe-ui) | Reusable components and interface patterns. |
+| [typesafe-ui](https://github.com/TypeSafeAI/typesafe-ui) | Reusable components and interface patterns. |
 
 These are separate repositories, not an automatically integrated or officially supported product suite. The proposed GitHub description and discovery topics are recorded in [repository-metadata.json](repository-metadata.json); that file does not change GitHub settings automatically.
